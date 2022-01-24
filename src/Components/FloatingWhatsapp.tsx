@@ -78,7 +78,7 @@ const isArabic = (string: string) => /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/
 export default function FloatingWhatsApp({
   phoneNumber = '6285311011013',
   accountName = 'Customer Services',
-  height = 340,
+  height = 400,
   avatar = dummyAvatar,
   statusMessage = 'Typically replies instantly',
   chatMessage = 'Selamat datang, Risers! 🤝 \n\nYuk tanya - tanya tentang produk harisenin.com',
