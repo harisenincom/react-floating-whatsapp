@@ -1,6 +1,6 @@
 {
   "name": "@harisenin/react-floating-whatsapp",
-  "version": "4.0.9",
+  "version": "4.0.10",
   "private": false,
   "description": "Simple React Component for adding a floating WhatsApp button to your project.",
   "author": "Muhammad Irfan <irfan@harisenin.com>",
