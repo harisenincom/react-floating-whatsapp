@@ -4,7 +4,7 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-    "react-floating-whatsapp": "link:.."
+
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",

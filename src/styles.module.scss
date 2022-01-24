@@ -6,8 +6,8 @@
 }
 
 .whatsappButton {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,10 +15,10 @@
   bottom: 2rem;
   right: 2rem;
   cursor: pointer;
-  background-color: #25d366;
+  background-color: #0dad8e;
   border-radius: 50%;
   user-select: none;
-  box-shadow: rgb(0 0 0 / 15%) 0px 4px 12px 0px;
+  box-shadow: rgb(0 0 0 / 15%) 0 4px 12px 0;
 }
 
 .whatsappButton:after {
@@ -39,8 +39,8 @@
 .whatsappButton svg {
   fill: #fff;
   padding: 0.5rem;
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
 }
 
 .whatsappChatBox {
@@ -58,6 +58,7 @@
   opacity: 0;
   transition: height 0.2s ease-out;
   box-shadow: 0 4px 12px 0 rgb(0 0 0 / 50%);
+  z-index: 999;
 }
 
 .whatsappChatBox.open {
@@ -100,8 +101,8 @@
 .chatHeader .avatar img {
   vertical-align: middle;
   border-radius: 50%;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   border: 1px solid rgba(255, 255, 255, 0.473);
 }
 
@@ -204,12 +205,12 @@
 .chatBody .message {
   padding: 7px 14px 6px;
   background-color: #fff;
-  border-radius: 0px 8px 8px;
+  border-radius: 0 8px 8px;
   position: relative;
   margin-top: 4px;
   max-width: calc(100% - 120px);
-  z-index: 2;
-  box-shadow: rgb(0 0 0 / 13%) 0px 1px 0.5px;
+  z-index: 999;
+  box-shadow: rgb(0 0 0 / 13%) 0 1px 0.5px;
 }
 
 .chatBody .accountName {
@@ -308,7 +309,7 @@
 
 .dark .chatBody .message {
   background-color: #056162;
-  box-shadow: rgb(0 0 0 / 70%) 0px 1px 0.5px;
+  box-shadow: rgb(0 0 0 / 70%) 0 1px 0.5px;
 }
 
 .dark .chatBody .accountName {
@@ -389,7 +390,7 @@
 @keyframes _bounceOut {
   0% {
     opacity: 1;
-    height: scale(1, 1);
+    transform: scale(1, 1);
     transform-origin: bottom right;
   }
   100% {
@@ -427,5 +428,5 @@
   height: 14px;
   position: absolute;
   top: -5px;
-  right: 0px;
+  right: 0;
 }

@@ -1,10 +1,10 @@
 import React, { useReducer, useEffect, useCallback, useRef, useMemo } from 'react'
 import { WhatsappSVG, CloseSVG, CheckSVG, SendSVG } from './Icons'
-import css from '../styles.module.css'
+import css from '../styles.module.scss'
 
 import darkBG from './assets/bg-chat-tile-light.png'
 import lightBG from './assets/bg-chat-tile-dark.png'
-import dummyAvatar from './assets/uifaces-avatar.jpg'
+import dummyAvatar from './assets/logo.svg'
 import SoundBeep from './assets/whatsapp-notification.mp3'
 
 interface FloatingWhatsAppProps {
@@ -76,12 +76,12 @@ function reducer(state: State, action: Action): State {
 const isArabic = (string: string) => /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(string)
 
 export default function FloatingWhatsApp({
-  phoneNumber = '1234567890',
-  accountName = 'Account Name',
-  height = 320,
+  phoneNumber = '6285311011013',
+  accountName = 'Customer Services',
+  height = 340,
   avatar = dummyAvatar,
-  statusMessage = 'Typically replies within 1 hour',
-  chatMessage = 'Hello there! 🤝 \nHow can we help?',
+  statusMessage = 'Typically replies instantly',
+  chatMessage = 'Selamat datang, Risers! 🤝 \n\nYuk tanya - tanya tentang produk harisenin.com',
   darkMode = false,
   allowClickAway = false,
   allowEsc = false,

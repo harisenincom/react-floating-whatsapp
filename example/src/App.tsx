@@ -6,14 +6,14 @@ import avatar from './logo.svg'
 function App() {
   return (
     <FloatingWhatsApp
-      phoneNumber='123456789'
-      accountName='awran5'
+      phoneNumber='+6281312117711'
+      accountName='Customer Services'
       allowClickAway
       avatar={avatar}
       notification
       notificationSound
       notificationDelay={30000}
-      darkMode
+      // darkMode
     />
   )
 }
