@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import { WhatsappSVG, CloseSVG, CheckSVG, SendSVG } from './Icons'
 import css from '../styles.module.scss'
 
@@ -17,6 +18,7 @@ interface FloatingWhatsAppProps {
   darkMode?: boolean
   allowClickAway?: boolean
   allowEsc?: boolean
+  allowInUrls?: Array<any>
   styles?: React.CSSProperties
   className?: string
   placeholder?: string
@@ -28,6 +30,7 @@ interface FloatingWhatsAppProps {
 type State = {
   isOpen: boolean
   isDelay: boolean
+  isHide: boolean
   isNotification: boolean
   message: string
 }
@@ -35,6 +38,7 @@ type State = {
 type Action =
   | { type: 'open' }
   | { type: 'close' }
+  | { type: 'hide' }
   | { type: 'delay' }
   | { type: 'notification' }
   | { type: 'message'; payload: string }
@@ -51,6 +55,12 @@ function reducer(state: State, action: Action): State {
       return {
         ...state,
         isOpen: false
+      }
+
+    case 'hide':
+      return {
+        ...state,
+        isHide: true
       }
 
     case 'delay':
@@ -76,24 +86,26 @@ function reducer(state: State, action: Action): State {
 const isArabic = (string: string) => /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(string)
 
 export default function FloatingWhatsApp({
-  phoneNumber = '6285311011013',
-  accountName = 'Customer Services',
-  height = 400,
-  avatar = dummyAvatar,
-  statusMessage = 'Typically replies instantly',
-  chatMessage = 'Selamat datang, Risers! 🤝 \n\nYuk tanya - tanya tentang produk harisenin.com',
-  darkMode = false,
-  allowClickAway = false,
-  allowEsc = false,
-  styles = {},
-  className = 'custom-class',
-  placeholder = 'Type a message..',
-  notification = false,
-  notificationDelay = 180000, // 3 minutes
-  notificationSound = false
-}: FloatingWhatsAppProps) {
-  const [{ isOpen, isDelay, isNotification, message }, dispatch] = useReducer(reducer, {
+                                           phoneNumber = '6285311011013',
+                                           accountName = 'Customer Services',
+                                           height = 400,
+                                           avatar = dummyAvatar,
+                                           statusMessage = 'Typically replies instantly',
+                                           chatMessage = 'Selamat datang, Risers! 🤝 \n\nYuk tanya - tanya tentang produk harisenin.com',
+                                           darkMode = false,
+                                           allowClickAway = false,
+                                           allowEsc = false,
+                                           allowInUrls = [],
+                                           styles = {},
+                                           className = 'custom-class',
+                                           placeholder = 'Type a message..',
+                                           notification = false,
+                                           notificationDelay = 180000, // 3 minutes
+                                           notificationSound = false
+                                         }: FloatingWhatsAppProps) {
+  const [{ isOpen, isDelay, isHide, isNotification, message }, dispatch] = useReducer(reducer, {
     isOpen: false,
+    isHide: false,
     isDelay: true,
     isNotification: false,
     message: ''
@@ -157,6 +169,15 @@ export default function FloatingWhatsApp({
     [allowEsc, isOpen]
   )
 
+  const onLoad = useCallback(() => {
+    if (!isHide && allowInUrls.length === 0) return
+    if (!allowInUrls.includes(window.location.pathname)) dispatch({ type: 'hide' })
+  }, [isHide])
+
+  // useEffect(() => {
+  //   onLoad()
+  // }, [onLoad])
+
   useEffect(() => {
     onNotification()
   }, [onNotification])
@@ -173,8 +194,10 @@ export default function FloatingWhatsApp({
     return () => document.removeEventListener('keydown', onEscKey)
   }, [onEscKey])
 
-  return (
-    <div className={`${css.floatingWhatsapp} ${darkMode ? `${css.dark} ` : ''}${className}`}>
+  console.log('hide:', isHide)
+
+  return !isHide ? (
+    <div className={`${css.floatingWhatsapp} ${darkMode ? `${css.dark} ` : ''}${className}`} onLoad={onLoad}>
       <div className={css.whatsappButton} onClick={(event) => handleOpen(event)} style={styles} aria-hidden='true'>
         <WhatsappSVG />
         {isNotification && <span className={css.notificationIndicator}>1</span>}
@@ -242,5 +265,6 @@ export default function FloatingWhatsApp({
         <audio ref={soundRef} hidden src={SoundBeep} />
       )}
     </div>
-  )
+  ) : <></>
+
 }

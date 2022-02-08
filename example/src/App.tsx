@@ -3,6 +3,10 @@ import FloatingWhatsApp from 'react-floating-whatsapp'
 import './App.css'
 import avatar from './logo.svg'
 
+const allowUrls = [
+  "/"
+]
+
 function App() {
   return (
     <FloatingWhatsApp
@@ -10,6 +14,7 @@ function App() {
       accountName='Customer Services'
       allowClickAway
       avatar={avatar}
+      allowInUrls={allowUrls}
       notification
       notificationSound
       notificationDelay={30000}
