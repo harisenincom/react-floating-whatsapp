@@ -1,5 +1,4 @@
 import React, { useReducer, useEffect, useCallback, useRef, useMemo } from 'react'
-import { useLocation } from 'react-router-dom'
 import { WhatsappSVG, CloseSVG, CheckSVG, SendSVG } from './Icons'
 import css from '../styles.module.scss'
 
@@ -172,7 +171,7 @@ export default function FloatingWhatsApp({
   const onLoad = useCallback(() => {
     if (!isHide && allowInUrls.length === 0) return
     if (!allowInUrls.includes(window.location.pathname)) dispatch({ type: 'hide' })
-  }, [isHide])
+  }, [allowInUrls, isHide])
 
   // useEffect(() => {
   //   onLoad()
@@ -193,8 +192,6 @@ export default function FloatingWhatsApp({
 
     return () => document.removeEventListener('keydown', onEscKey)
   }, [onEscKey])
-
-  console.log('hide:', isHide)
 
   return !isHide ? (
     <div className={`${css.floatingWhatsapp} ${darkMode ? `${css.dark} ` : ''}${className}`} onLoad={onLoad}>
