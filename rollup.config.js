@@ -1,14 +1,16 @@
-import typescript from 'rollup-plugin-typescript2'
-import peerDepsExternal from 'rollup-plugin-peer-deps-external'
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import postcss from 'rollup-plugin-postcss'
-import autoprefixer from 'autoprefixer'
-// import copy from 'rollup-plugin-copy'
-import url from '@rollup/plugin-url'
+import typescript from 'rollup-plugin-typescript2';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import postcss from 'rollup-plugin-postcss';
+import autoprefixer from 'autoprefixer';
+// import copy from 'rollup-plugin-copy';
+import url from '@rollup/plugin-url';
+import terser from '@rollup/plugin-terser';
+import { readFileSync } from 'fs';
 
-import { terser } from 'rollup-plugin-terser'
-import packageJson from './package.json'
+// Read package.json as ES module
+const packageJson = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
 
 export default {
   input: 'src/index.tsx',
@@ -23,7 +25,7 @@ export default {
     url({
       include: ['**/*.svg', '**/*.png', '**/*.jp(e)?g', '**/*.mp3', '**/*.webp'],
       limit: 99000,
-      destDir: 'dist'
+      emitFiles: true
     }),
     // copy({
     //   targets: [{ src: 'src/Components/assets', dest: 'dist' }]
@@ -33,6 +35,7 @@ export default {
   ],
   output: {
     file: packageJson.main,
-    format: 'cjs'
+    format: 'cjs',
+    sourcemap: true
   }
 }
