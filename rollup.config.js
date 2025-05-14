@@ -35,7 +35,7 @@ export default {
   ],
   output: {
     file: packageJson.main,
-    format: 'cjs',
+    format: 'esm',
     sourcemap: true
   }
 }
